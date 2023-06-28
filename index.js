@@ -3,6 +3,7 @@ import cors from "cors";
 import * as dotenv from "dotenv";
 import morgan from "morgan";
 import path from "path";
+import productosRouter from "./src/routes/productos.routes";
 
 dotenv.config() // si o si antes de mencionar una variable de entorno
 
@@ -27,6 +28,5 @@ app.use(express.static(path.join(__dirname, `/public`)))
 
 
 // rutas: a donde se hara una solicitud
-app.get("/prueba", (req, res) => {
-    res.send("Esta es una prueba de mi ruta get")
-})
+// http://localhost:4000/apicafe/prueba
+app.use(`/apicafe`, productosRouter)
