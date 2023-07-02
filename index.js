@@ -3,7 +3,7 @@ import cors from "cors";
 import * as dotenv from "dotenv";
 import morgan from "morgan";
 import path from "path";
-import "./src/database/dbConnection"
+import "./src/database/dbConnection"   // importamos la conexion con la base de datos
 import productosRouter from "./src/routes/productos.routes";
 
 dotenv.config() // si o si antes de mencionar una variable de entorno

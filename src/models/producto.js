@@ -5,7 +5,7 @@ const productoSchema = new Schema({
    nombreProducto:{
     type: String,
     required: true,
-    unique: true,
+    unique: true, // productos unicos, para evitar datos duplicados
     minLength: 3,
     maxLength: 60
    },
@@ -29,6 +29,6 @@ const productoSchema = new Schema({
    } 
 })
 
-const Producto = mongoose.model(`producto`, productoSchema) //no poner una "s"
+const Producto = mongoose.model(`producto`, productoSchema) //no poner una "s" a "producto" de adentro de parentesis, xq mongodb la agrega al final cuando vamos agregando mas productos
 
 export default Producto;
