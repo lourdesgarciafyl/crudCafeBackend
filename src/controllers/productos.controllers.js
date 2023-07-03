@@ -1,3 +1,4 @@
+import { json } from "express";
 import Producto from "../models/producto"
 
 export const controladorPrueba = (req, res) => {
@@ -55,6 +56,21 @@ export const borrarProducto = async (req, res) =>{
        await Producto.findByIdAndDelete(req.params.id);
        res.status(200).json({
         mensaje: "El producto fue eliminado correctamente"
+       })
+    }catch(error){
+        console.log(error)
+        res.status(404).json({
+            mensaje: "Error. No se pudo borrar el producto."
+        })
+    }
+}
+
+// editar
+export const editarProducto = async (req, res) =>{
+    try{
+       await Producto.findByIdAndUpdate(req.params.id, req.body);
+       res.status(200).json({
+        mensaje: "Producto actualizado correctamente."
        })
     }catch(error){
         console.log(error)
