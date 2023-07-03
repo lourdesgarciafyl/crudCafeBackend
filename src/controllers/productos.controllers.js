@@ -31,3 +31,19 @@ export const obtenerListaProductos = async (req, res) =>{
         })
     }
 }
+
+// hay una forma que mongoose nos deja trabajar con el id: borrar por id, buscar por id, etc
+
+export const obtenerProducto = async (req, res) =>{
+    try{
+        // buscar en la base de datos UN documento producto, mediante el ID del mismo
+       console.log(req.params.id)
+       const producto = await Producto.findById(req.params.id); // find de mongoose es una querie que devuelve el producrto por id
+       res.status(200).json(producto);
+    }catch(error){
+        console.log(error)
+        res.status(404).json({
+            mensaje: "Error. No se pudo obtener el producto."
+        })
+    }
+}
