@@ -1,5 +1,6 @@
 import { json } from "express";
 import Producto from "../models/producto"
+import { validationResult } from "express-validator";
 
 export const controladorPrueba = (req, res) => {
     res.send("Esta es una prueba de mi ruta get")
@@ -7,6 +8,15 @@ export const controladorPrueba = (req, res) => {
 
 export const crearProducto = async (req, res) => {
     try{
+        // trabajar con resultados de la validacion con express validator
+        const errors = validationResult(req)
+        // errors tiene un metodo llamado isEmpty, true: todo esta bien, esta vacio, false: hay errores que se guardaron en el array errors
+        if(!errors.isEmpty()){
+            return res.status(400).json({
+                errores: errors.array()
+            });
+        };
+
         const productoNuevo = new Producto(req.body);
         await productoNuevo.save(); // save es una querie o metodo de mongoose para guardar en la coleccion
         res.status(201).json({

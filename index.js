@@ -27,7 +27,6 @@ app.use(morgan("dev")); //da info extra en la terminar
 console.log(path.join(__dirname, `/public`));
 app.use(express.static(path.join(__dirname, `/public`)))
 
-
 // rutas: a donde se hara una solicitud
 // http://localhost:4000/apicafe/prueba
 app.use(`/apicafe`, productosRouter)
