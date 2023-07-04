@@ -11,6 +11,15 @@ router.route("/productos").post([
     check(`nombreProducto`)
     .notEmpty()
     .withMessage("El nombre del producto es obligatorio")
+    .isString()
+    .isLength({min: 3, max:60})
+    .withMessage("El nombre del producto debe contener entre 3 y 60 caracteres"),
+    check(`precio`)
+    .notEmpty()
+    .withMessage("El preico del producto es obligatorio")
+    .isNumeric()
+    .withMessage("Debe ingresar un valor numerico")
+    .custom(()=>{})
 ],
 crearProducto
 )

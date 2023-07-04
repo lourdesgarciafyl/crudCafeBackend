@@ -5,6 +5,7 @@ import morgan from "morgan";
 import path from "path";
 import "./src/database/dbConnection"   // importamos la conexion con la base de datos
 import productosRouter from "./src/routes/productos.routes";
+import routerUsuarios from "./src/routes/usuarios.routes";
 
 dotenv.config() // si o si antes de mencionar una variable de entorno
 
@@ -30,3 +31,4 @@ app.use(express.static(path.join(__dirname, `/public`)))
 // rutas: a donde se hara una solicitud
 // http://localhost:4000/apicafe/prueba
 app.use(`/apicafe`, productosRouter)
+app.use(`/apicafe`, routerUsuarios)
