@@ -18,7 +18,29 @@ router.route("/productos").post([
     .notEmpty()
     .withMessage("El preico del producto es obligatorio")
     .isNumeric()
-    .withMessage("Debe ingresar un valor numerico")],
+    .withMessage("Debe ingresar un valor numerico")
+    .custom((value) =>{
+        if(value >= 10 && value <= 10000){
+            return true;
+        }else{
+            throw new Error("El precio debe estar entre 10 y 10000")
+        }
+    }),
+    check("imagen")
+    .notEmpty()
+    .withMessage("La imagen es un dato obligatorio")
+    .matches(/^(http(s?):)([/|.|\w|\s|-])*\.(?:png|jpe?g|gif|svg)$/)
+    .withMessage("Debe ingresar un link terminado en jpg, gif o png"),
+    check("descripcion")
+    .isString()
+    .notEmpty(),
+    check("categoria")
+    .notEmpty()
+    .withMessage("La categoría es una dato obligatorio")
+    .isIn(["bebida caliente", "bebida fria", "dulce", "salado"])
+    .withMessage("La categoria debe ser una opción válida")
+
+],
 crearProducto
 )
 .get(obtenerListaProductos);

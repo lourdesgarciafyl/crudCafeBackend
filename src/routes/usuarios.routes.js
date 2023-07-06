@@ -17,8 +17,9 @@ routerUsuarios.route("/nuevo").post(
             min: 8,
             max: 16,
           })
-          .matches(/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/)
-          .withMessage(
+         // usada en clases: .matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/)
+         .matches(/^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$/)
+         .withMessage(
             "El password debe contener 8 a 16 caracteres (al menos 1 letra mayúscula, 1 letra minúscula y 1 numero) también puede incluir carácteres especiales"
           ),
       ],
