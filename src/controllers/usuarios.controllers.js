@@ -6,18 +6,32 @@ export const controladorPruebaUsuario = (req, res) => {
 
 export const crearUsuario = async (req, res) =>{
     try{
-        const usuarioNuevo = new Usuario(req.body);
-        await usuarioNuevo.save()
-        res.status(201).json({
-            mensaje: "El usuario fue creado correctamente"
-        })
+        const { email } = req.body;
+    //verificar si el email ya existe
+    let usuario = await Usuario.findOne({ email }); //devulve un null
+    console.log(usuario);
+    if (usuario) {
+      //si el usuario existe
+      return res.status(400).json({
+        mensaje: "ya existe un usuario con el correo enviado",
+      });
+    }
+    //guardamos el nuevo usuario en la BD
+    usuario = new Usuario(req.body);
+    await usuario.save();
+    res.status(201).json({
+      mensaje: "usuario creado",
+      nombre: usuario.nombre,
+      uid: usuario._id,
+    });
     }catch(error){
         console.log(error);
         res.status(404).json({
-            mensaje: "Error. No se pudo dar de alta el usuario"
+            mensaje: "Error. No se pudo crear el usuario."
         })
     }
-}
+    }
+
 
 export const obtenerListaUsuarios = async (req, res) =>{
     try{

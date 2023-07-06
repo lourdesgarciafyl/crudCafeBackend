@@ -18,9 +18,7 @@ router.route("/productos").post([
     .notEmpty()
     .withMessage("El preico del producto es obligatorio")
     .isNumeric()
-    .withMessage("Debe ingresar un valor numerico")
-    .custom(()=>{})
-],
+    .withMessage("Debe ingresar un valor numerico")],
 crearProducto
 )
 .get(obtenerListaProductos);

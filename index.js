@@ -13,7 +13,7 @@ dotenv.config() // si o si antes de mencionar una variable de entorno
 // crear una instancia de express
 const app = express();
 
-app.set("PORT", process.env.PORT || 4000)
+app.set("PORT", process.env.PORT || 4006)
 
 app.listen(app.get("PORT"), () =>{
     console.log("Estoy en el puerto "+ app.get("PORT"))
@@ -31,4 +31,4 @@ app.use(express.static(path.join(__dirname, `/public`)))
 // rutas: a donde se hara una solicitud
 // http://localhost:4000/apicafe/prueba
 app.use(`/apicafe`, productosRouter)
-app.use(`/apicafe`, routerUsuarios)
+app.use(`/apicafe/auth`, routerUsuarios)
