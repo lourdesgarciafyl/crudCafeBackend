@@ -1,4 +1,5 @@
 import Usuario from "../models/usuario";
+import { validationResult } from "express-validator";
 
 export const controladorPruebaUsuario = (req, res) => {
     res.send("Esta es una prueba de mi ruta get")
@@ -6,7 +7,16 @@ export const controladorPruebaUsuario = (req, res) => {
 
 export const crearUsuario = async (req, res) =>{
     try{
-        const { email } = req.body;
+    //trabajar con los resultados de la validacion
+    const errors = validationResult(req);
+    //errors.isEmpty(); true: si esta vacio, es false si tiene errores;
+    //quiero saber si hay errores
+    if(!errors.isEmpty()){
+        return res.status(400).json({
+            errores: errors.array()
+        }) 
+    }    
+    const { email } = req.body;
     //verificar si el email ya existe
     let usuario = await Usuario.findOne({ email }); //devulve un null
     console.log(usuario);
