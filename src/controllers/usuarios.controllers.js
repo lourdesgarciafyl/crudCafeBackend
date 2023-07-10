@@ -1,5 +1,6 @@
 import Usuario from "../models/usuario";
 import { validationResult } from "express-validator";
+import bcrypt from "bcrypt"
 
 export const controladorPruebaUsuario = (req, res) => {
     res.send("Esta es una prueba de mi ruta get")
@@ -16,7 +17,7 @@ export const crearUsuario = async (req, res) =>{
             errores: errors.array()
         }) 
     }    
-    const { email } = req.body;
+    const { email, password } = req.body;
     //verificar si el email ya existe
     let usuario = await Usuario.findOne({ email }); //devulve un null
     console.log(usuario);
@@ -28,6 +29,10 @@ export const crearUsuario = async (req, res) =>{
     }
     //guardamos el nuevo usuario en la BD
     usuario = new Usuario(req.body);
+    // encriptar la contraseña antes de guardar el dato
+    const salt = bcrypt.genSaltSync(10);
+    usuario.password = bcrypt.hashSync(password, salt);
+    // luego guardar en la base de datos
     await usuario.save();
     res.status(201).json({
       mensaje: "usuario creado",
