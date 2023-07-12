@@ -1,5 +1,4 @@
 import Usuario from "../models/usuario";
-import { validationResult } from "express-validator";
 import bcrypt from "bcrypt"
 
 export const controladorPruebaUsuario = (req, res) => {
@@ -8,15 +7,6 @@ export const controladorPruebaUsuario = (req, res) => {
 
 export const crearUsuario = async (req, res) =>{
     try{
-    //trabajar con los resultados de la validacion
-    const errors = validationResult(req);
-    //errors.isEmpty(); true: si esta vacio, es false si tiene errores;
-    //quiero saber si hay errores
-    if(!errors.isEmpty()){
-        return res.status(400).json({
-            errores: errors.array()
-        }) 
-    }    
     const { email, password } = req.body;
     //verificar si el email ya existe
     let usuario = await Usuario.findOne({ email }); //devulve un null
@@ -41,8 +31,8 @@ export const crearUsuario = async (req, res) =>{
     });
     }catch(error){
         console.log(error);
-        res.status(404).json({
-            mensaje: "Error. No se pudo crear el usuario."
+        res.status(400).json({
+            mensaje: "El usuario no pudo ser creado."
         })
     }
     }

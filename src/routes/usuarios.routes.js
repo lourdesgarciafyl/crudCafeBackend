@@ -6,7 +6,16 @@ const routerUsuarios = Router()
 
 routerUsuarios.route("/pruebausuario").get(controladorPruebaUsuario)
 
-routerUsuarios.route("/usuarios").get(obtenerListaUsuarios).post(login)
+routerUsuarios.route("/").get(obtenerListaUsuarios).post([
+check("email")
+.notEmpty()
+.withMessage("El mail es un dato obligatorio")
+.isEmail(),
+check("password")
+.notEmpty()
+.withMessage("Debe ingresar una contraseña"),
+],
+login)
 
 routerUsuarios.route("/nuevo").post(
     [
